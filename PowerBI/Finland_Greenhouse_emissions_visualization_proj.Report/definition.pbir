@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Finland_Greenhouse_emissions_visualization_proj.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

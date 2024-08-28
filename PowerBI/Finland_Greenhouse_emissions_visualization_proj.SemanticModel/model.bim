@@ -1,0 +1,1230 @@
+{
+  "compatibilityLevel": 1550,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"Finland_emissions_2023\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      },
+      {
+        "name": "PBIDesktopVersion",
+        "value": "2.132.1053.0 (24.08)"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "fi-FI",
+    "cultures": [
+      {
+        "name": "fi-FI",
+        "linguisticMetadata": {
+          "content": {
+            "Language": "en-US",
+            "Version": "1.0.0"
+          },
+          "contentType": "json"
+        }
+      }
+    ],
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "relationships": [
+      {
+        "name": "7dc5141b-3515-43ad-aab8-b2c5076ecbbd",
+        "fromColumn": "Year",
+        "fromTable": "Finland_emissions_2023",
+        "joinOnDateBehavior": "datePartOnly",
+        "toColumn": "Date",
+        "toTable": "LocalDateTable_2a9a4eb9-09ee-4b4c-a322-7db39bfa5a64"
+      },
+      {
+        "name": "8bd46354-c26c-4034-8417-79a19a0b9e0f",
+        "fromColumn": "Year",
+        "fromTable": "Totals",
+        "joinOnDateBehavior": "datePartOnly",
+        "toColumn": "Date",
+        "toTable": "LocalDateTable_1ea440ff-573e-43ff-ae1e-93451a5c0866"
+      },
+      {
+        "name": "aa0ea8f5-2ec7-41bc-be82-4e26dbae3735",
+        "fromColumn": "Year",
+        "fromTable": "NoTotals",
+        "joinOnDateBehavior": "datePartOnly",
+        "toColumn": "Date",
+        "toTable": "LocalDateTable_725aafe6-38ea-4166-848e-d97e3e0b6b81"
+      }
+    ],
+    "sourceQueryCulture": "fi-FI",
+    "tables": [
+      {
+        "name": "Finland_emissions_2023",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Siirtyminen"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "Short Date",
+            "lineageTag": "429e691c-d8d4-4e2f-9417-bd6b68c9a4e3",
+            "sourceColumn": "Year",
+            "summarizeBy": "none",
+            "variations": [
+              {
+                "name": "Vaihtelu",
+                "defaultHierarchy": {
+                  "hierarchy": "Päivämäärähierarkia",
+                  "table": "LocalDateTable_2a9a4eb9-09ee-4b4c-a322-7db39bfa5a64"
+                },
+                "isDefault": true,
+                "relationship": "7dc5141b-3515-43ad-aab8-b2c5076ecbbd"
+              }
+            ]
+          },
+          {
+            "name": "Emission category",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "18c63280-2fb5-4434-8c2f-4133235c83ee",
+            "sourceColumn": "Emission category",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Greenhouse gas",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "fe46deec-6610-42ae-803f-4d1b57ab542c",
+            "sourceColumn": "Greenhouse gas",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Emission, thousand tonnes of CO2 eq.",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "4f7e9033-0c10-4fec-a139-524cbd1e88ee",
+            "sourceColumn": "Emission, thousand tonnes of CO2 eq.",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "9f472294-7f62-4c6e-836b-5005f94b9dd1",
+        "measures": [
+          {
+            "name": "NonTotals",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "CALCULATE(SUM('Finland_emissions_2023'[Emission, thousand tonnes of CO2 eq.]), FILTER(Finland_emissions_2023, Finland_emissions_2023[Greenhouse gas] <> \"Total\" && Finland_emissions_2023[Emission category] = \"Emissions without LULUCF\" )) ",
+            "lineageTag": "75f78696-fafa-4bd5-a388-ed14215bd767"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Finland_emissions_2023",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Lähde = Csv.Document(File.Contents(\"D:\\Programming\\UDemy\\PowerBI\\Finland_emissions_2023.csv\"),[Delimiter=\",\", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),",
+                "    #\"Ylennetyt otsikot\" = Table.PromoteHeaders(Lähde, [PromoteAllScalars=true]),",
+                "    #\"Muutettu tyyppi\" = Table.TransformColumnTypes(#\"Ylennetyt otsikot\",{{\"Year\", Int64.Type}, {\"Emission category\", type text}, {\"Greenhouse gas\", type text}, {\"Emission, thousand tonnes of CO2 eq. (GWP=AR5)\", type text}}),",
+                "    #\"Muutettu tyyppi1\" = Table.TransformColumnTypes(#\"Muutettu tyyppi\",{{\"Emission, thousand tonnes of CO2 eq. (GWP=AR5)\", type number}}),",
+                "    #\"Poistettu virheet\" = Table.RemoveRowsWithErrors(#\"Muutettu tyyppi1\", {\"Emission, thousand tonnes of CO2 eq. (GWP=AR5)\"}),",
+                "    #\"Poistettu kaksoiskappaleet\" = Table.Distinct(#\"Poistettu virheet\", {\"Emission, thousand tonnes of CO2 eq. (GWP=AR5)\"}),",
+                "    #\"Poistettu virheet1\" = Table.RemoveRowsWithErrors(#\"Poistettu kaksoiskappaleet\", {\"Year\"}),",
+                "    #\"Muutettu tyyppi2\" = Table.TransformColumnTypes(#\"Poistettu virheet1\",{{\"Year\", type text}}),",
+                "    #\"Muutettu tyyppi3\" = Table.TransformColumnTypes(#\"Muutettu tyyppi2\",{{\"Year\", type date}}),",
+                "    #\"Nimetty sarakkeet uudelleen\" = Table.RenameColumns(#\"Muutettu tyyppi3\",{{\"Emission, thousand tonnes of CO2 eq. (GWP=AR5)\", \"Emission, thousand tonnes of CO2 eq.\"}})",
+                "in",
+                "    #\"Nimetty sarakkeet uudelleen\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "DateTableTemplate_d9703810-173f-46ad-a9df-e14dda4c4ac4",
+        "annotations": [
+          {
+            "name": "__PBI_TemplateDateTable",
+            "value": "true"
+          },
+          {
+            "name": "DefaultItem",
+            "value": "DateHierarchy"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "a5204d3c-d18d-4cff-b112-0e6e57f4265f",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Vuosi",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "f0978938-6493-4f41-8990-324614020848",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "9b797ed9-0c80-45c8-a857-c40593b16d53",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Kuukausi",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isHidden": true,
+            "lineageTag": "046cd56f-b179-429f-b15f-83049a435b66",
+            "sortByColumn": "MonthNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "QuarterNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "47c8e785-1237-40ed-b3c2-a3b4ac1214f3",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Vuosineljännes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Neljännes \" & [QuarterNo]",
+            "isHidden": true,
+            "lineageTag": "f587719f-f440-495d-bb7f-f51ca5ca4775",
+            "sortByColumn": "QuarterNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Päivä",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "8933b737-e2bc-41e5-a0c4-8bd211b79541",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Päivämäärähierarkia",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Vuosi",
+                "column": "Vuosi",
+                "lineageTag": "d5f2b450-4fcc-466f-9b09-f98b4dedbe80",
+                "ordinal": 0
+              },
+              {
+                "name": "Vuosineljännes",
+                "column": "Vuosineljännes",
+                "lineageTag": "62a24a91-b914-4fcf-b98b-bbaafc6ec6fb",
+                "ordinal": 1
+              },
+              {
+                "name": "Kuukausi",
+                "column": "Kuukausi",
+                "lineageTag": "aac4fcda-7a42-4567-bf62-06cd82e3ee1c",
+                "ordinal": 2
+              },
+              {
+                "name": "Päivä",
+                "column": "Päivä",
+                "lineageTag": "66b1d17c-7f36-4c70-bfa3-00b11f1a93d1",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "4000f172-68f0-41c1-a6e7-0cc98418c4e8"
+          }
+        ],
+        "isHidden": true,
+        "isPrivate": true,
+        "lineageTag": "0b443c8f-fa2f-411a-8b27-d9275a0de6ff",
+        "partitions": [
+          {
+            "name": "DateTableTemplate_d9703810-173f-46ad-a9df-e14dda4c4ac4",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(2015,1,1), Date(2015,1,1))",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "NoTotals",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "f1d8826190314105ab133f818ee4ffa4"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "848c44b9-4924-4957-a1b9-efc43026b0f2",
+            "sourceColumn": "Finland_emissions_2023[Year]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn",
+            "variations": [
+              {
+                "name": "Vaihtelu",
+                "defaultHierarchy": {
+                  "hierarchy": "Päivämäärähierarkia",
+                  "table": "LocalDateTable_725aafe6-38ea-4166-848e-d97e3e0b6b81"
+                },
+                "isDefault": true,
+                "relationship": "aa0ea8f5-2ec7-41bc-be82-4e26dbae3735"
+              }
+            ]
+          },
+          {
+            "name": "Emission category",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "58b30498-7c93-4dd0-9249-2a28405d87be",
+            "sourceColumn": "Finland_emissions_2023[Emission category]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Greenhouse gas",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "2f941d7a-4a1c-49ac-b660-a6712830d028",
+            "sourceColumn": "Finland_emissions_2023[Greenhouse gas]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Emission, thousand tonnes of CO2 eq.",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "e0adf47e-7ddd-4077-87b8-e2bc957860bc",
+            "sourceColumn": "Finland_emissions_2023[Emission, thousand tonnes of CO2 eq.]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "78c5a39d-a323-4df6-9f4a-b6859ea5cc0e",
+        "partitions": [
+          {
+            "name": "NoTotals",
+            "mode": "import",
+            "source": {
+              "expression": "FILTER(Finland_emissions_2023, Finland_emissions_2023[Greenhouse gas] <> \"Total\" && Finland_emissions_2023[Emission category] = \"Emissions without LULUCF\" ) ",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Totals",
+        "annotations": [
+          {
+            "name": "PBI_Id",
+            "value": "7065167dd51240bda86f664818b7869e"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Year",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "21522c4c-1286-4ea0-b976-997bc25808f2",
+            "sourceColumn": "[Year]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn",
+            "variations": [
+              {
+                "name": "Vaihtelu",
+                "defaultHierarchy": {
+                  "hierarchy": "Päivämäärähierarkia",
+                  "table": "LocalDateTable_1ea440ff-573e-43ff-ae1e-93451a5c0866"
+                },
+                "isDefault": true,
+                "relationship": "8bd46354-c26c-4034-8417-79a19a0b9e0f"
+              }
+            ]
+          },
+          {
+            "name": "Emission Category",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "308c2e3a-fec6-4756-869d-b4a4a1ce3105",
+            "sourceColumn": "[Emission Category]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Emission, thousand tonnes of CO2 eq.",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "isDataTypeInferred": true,
+            "isNameInferred": true,
+            "lineageTag": "c4ac4e84-da27-425d-86b7-0af3ec3600ed",
+            "sourceColumn": "[Emission, thousand tonnes of CO2 eq.]",
+            "summarizeBy": "sum",
+            "type": "calculatedTableColumn"
+          }
+        ],
+        "lineageTag": "c5991053-2a83-4ecf-9e05-65b231a03870",
+        "measures": [
+          {
+            "name": "With LULUCF",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "CALCULATE(SUM('Totals'[Emission, thousand tonnes of CO2 eq.]), 'Totals'[Emission Category] = \"Emissions with LULUCF\")",
+            "lineageTag": "dc24c306-f48f-4bb6-afac-f6b54f3e9153"
+          },
+          {
+            "name": "Without LULUCF",
+            "expression": "CALCULATE(SUM('Totals'[Emission, thousand tonnes of CO2 eq.]), 'Totals'[Emission Category] = \"Emissions without LULUCF\")",
+            "formatString": "0",
+            "lineageTag": "84d49a5e-0bad-4cbf-8985-68ab85ba6138"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Totals",
+            "mode": "import",
+            "source": {
+              "expression": "SELECTCOLUMNS(FILTER(Finland_emissions_2023, Finland_emissions_2023[Greenhouse gas] = \"Total\"), \"Year\",  [Year], \"Emission Category\", [Emission category], \"Emission, thousand tonnes of CO2 eq.\", [Emission, thousand tonnes of CO2 eq.])",
+              "type": "calculated"
+            }
+          }
+        ]
+      },
+      {
+        "name": "LocalDateTable_2a9a4eb9-09ee-4b4c-a322-7db39bfa5a64",
+        "annotations": [
+          {
+            "name": "__PBI_LocalDateTable",
+            "value": "true"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "41b306f1-5dba-4f82-8b2a-0cd1c90f69bd",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Vuosi",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "516caa76-4fd9-42eb-83f1-7a50eea8185f",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "688a6b5c-90b6-42c8-aa38-cd2ff215aa7f",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Kuukausi",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isHidden": true,
+            "lineageTag": "d3aa69ec-edf8-473b-851d-bdc430bfd843",
+            "sortByColumn": "MonthNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "QuarterNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "40e8d1e9-875e-422a-9f66-92c6459189bd",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Vuosineljännes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Neljännes \" & [QuarterNo]",
+            "isHidden": true,
+            "lineageTag": "f2875177-de49-4ea2-b64f-e07cb5131f41",
+            "sortByColumn": "QuarterNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Päivä",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "b1b467b0-55ca-4780-8a63-a79da15f9ac3",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Päivämäärähierarkia",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Vuosi",
+                "column": "Vuosi",
+                "lineageTag": "219be8b9-b678-4e2f-ab1f-469755c17a75",
+                "ordinal": 0
+              },
+              {
+                "name": "Vuosineljännes",
+                "column": "Vuosineljännes",
+                "lineageTag": "519e8951-d642-4771-88e9-210d8d4d9975",
+                "ordinal": 1
+              },
+              {
+                "name": "Kuukausi",
+                "column": "Kuukausi",
+                "lineageTag": "d2edb096-4ead-4d72-a69e-9048a1401081",
+                "ordinal": 2
+              },
+              {
+                "name": "Päivä",
+                "column": "Päivä",
+                "lineageTag": "751b0960-3e95-43f2-8825-e6898fd63c8c",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "664505a9-027b-47ee-9d30-d29d6fbb1088"
+          }
+        ],
+        "isHidden": true,
+        "lineageTag": "f2f739f5-f7dc-42bb-812d-a762efa6b22f",
+        "partitions": [
+          {
+            "name": "LocalDateTable_2a9a4eb9-09ee-4b4c-a322-7db39bfa5a64",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(Year(MIN('Finland_emissions_2023'[Year])), 1, 1), Date(Year(MAX('Finland_emissions_2023'[Year])), 12, 31))",
+              "type": "calculated"
+            }
+          }
+        ],
+        "showAsVariationsOnly": true
+      },
+      {
+        "name": "LocalDateTable_1ea440ff-573e-43ff-ae1e-93451a5c0866",
+        "annotations": [
+          {
+            "name": "__PBI_LocalDateTable",
+            "value": "true"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "c6f62a5e-98a0-4602-a3de-c2c01b146423",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Vuosi",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "fddfbcc5-e634-429f-8d5a-7707fe8d48fd",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "e0679f85-5bfc-49f6-a47c-b6e2aed76416",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Kuukausi",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isHidden": true,
+            "lineageTag": "624d3c84-3f18-4ea9-9d05-a017474874dd",
+            "sortByColumn": "MonthNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "QuarterNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "4c637e0a-405f-4d1e-b587-e2b459dcdd30",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Vuosineljännes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Neljännes \" & [QuarterNo]",
+            "isHidden": true,
+            "lineageTag": "1c17f169-20ca-4cc3-b909-00503b39b936",
+            "sortByColumn": "QuarterNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Päivä",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "24e5761b-c414-437f-b453-9512788bf2a9",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Päivämäärähierarkia",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Vuosi",
+                "column": "Vuosi",
+                "lineageTag": "780ec5d4-0940-4645-91e8-ae4f1602361d",
+                "ordinal": 0
+              },
+              {
+                "name": "Vuosineljännes",
+                "column": "Vuosineljännes",
+                "lineageTag": "7dd9a96e-7964-47ff-99d2-7043fae79672",
+                "ordinal": 1
+              },
+              {
+                "name": "Kuukausi",
+                "column": "Kuukausi",
+                "lineageTag": "eba86363-f59f-46f2-bc8e-9b05bd31ab1c",
+                "ordinal": 2
+              },
+              {
+                "name": "Päivä",
+                "column": "Päivä",
+                "lineageTag": "ac1f53f6-dc26-4283-bea4-bb23d350fda7",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "192ccaa1-9648-496f-b9b1-52d3d8b23f93"
+          }
+        ],
+        "isHidden": true,
+        "lineageTag": "d3710ae4-831d-4ab1-8566-64931f2ed731",
+        "partitions": [
+          {
+            "name": "LocalDateTable_1ea440ff-573e-43ff-ae1e-93451a5c0866",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(Year(MIN('Totals'[Year])), 1, 1), Date(Year(MAX('Totals'[Year])), 12, 31))",
+              "type": "calculated"
+            }
+          }
+        ],
+        "showAsVariationsOnly": true
+      },
+      {
+        "name": "LocalDateTable_725aafe6-38ea-4166-848e-d97e3e0b6b81",
+        "annotations": [
+          {
+            "name": "__PBI_LocalDateTable",
+            "value": "true"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Date",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              }
+            ],
+            "dataCategory": "PaddedDateTableDates",
+            "dataType": "dateTime",
+            "formatString": "General Date",
+            "isHidden": true,
+            "isNameInferred": true,
+            "lineageTag": "571323ab-d901-46bb-ab1f-dfa90cd11325",
+            "sourceColumn": "[Date]",
+            "summarizeBy": "none",
+            "type": "calculatedTableColumn"
+          },
+          {
+            "name": "Vuosi",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Year"
+              }
+            ],
+            "dataCategory": "Years",
+            "dataType": "int64",
+            "expression": "YEAR([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "a30cefe4-81e7-4c34-91c5-fc93ddc4b7d8",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "MonthNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "MonthNumber"
+              }
+            ],
+            "dataCategory": "MonthOfYear",
+            "dataType": "int64",
+            "expression": "MONTH([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "a4e341da-1893-4a38-9790-c49e547c515a",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Kuukausi",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Month"
+              }
+            ],
+            "dataCategory": "Months",
+            "dataType": "string",
+            "expression": "FORMAT([Date], \"MMMM\")",
+            "isHidden": true,
+            "lineageTag": "ba164517-f146-4f4b-a311-6ba06ee88add",
+            "sortByColumn": "MonthNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "QuarterNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "QuarterNumber"
+              }
+            ],
+            "dataCategory": "QuarterOfYear",
+            "dataType": "int64",
+            "expression": "INT(([MonthNo] + 2) / 3)",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "ebe32441-e9c5-4dda-bc9a-1b1585020f20",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Vuosineljännes",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Quarter"
+              }
+            ],
+            "dataCategory": "Quarters",
+            "dataType": "string",
+            "expression": "\"Neljännes \" & [QuarterNo]",
+            "isHidden": true,
+            "lineageTag": "e3aa004f-c797-4914-bc10-ddce18cae4e1",
+            "sortByColumn": "QuarterNo",
+            "summarizeBy": "none",
+            "type": "calculated"
+          },
+          {
+            "name": "Päivä",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "User"
+              },
+              {
+                "name": "TemplateId",
+                "value": "Day"
+              }
+            ],
+            "dataCategory": "DayOfMonth",
+            "dataType": "int64",
+            "expression": "DAY([Date])",
+            "formatString": "0",
+            "isHidden": true,
+            "lineageTag": "19d00ea5-e7ea-45c6-96d1-5aeb32311c72",
+            "summarizeBy": "none",
+            "type": "calculated"
+          }
+        ],
+        "hierarchies": [
+          {
+            "name": "Päivämäärähierarkia",
+            "annotations": [
+              {
+                "name": "TemplateId",
+                "value": "DateHierarchy"
+              }
+            ],
+            "levels": [
+              {
+                "name": "Vuosi",
+                "column": "Vuosi",
+                "lineageTag": "82ab3174-2168-495b-9dee-55c001880966",
+                "ordinal": 0
+              },
+              {
+                "name": "Vuosineljännes",
+                "column": "Vuosineljännes",
+                "lineageTag": "faf65409-8add-436e-920e-fc63a6868e3b",
+                "ordinal": 1
+              },
+              {
+                "name": "Kuukausi",
+                "column": "Kuukausi",
+                "lineageTag": "b9f70f7e-809d-437b-a1e8-2cbce0ce45bd",
+                "ordinal": 2
+              },
+              {
+                "name": "Päivä",
+                "column": "Päivä",
+                "lineageTag": "efff2cfc-1377-4594-a67e-f48b2f2ba042",
+                "ordinal": 3
+              }
+            ],
+            "lineageTag": "0efb3894-d4af-4a11-ab00-7a9716ecc20a"
+          }
+        ],
+        "isHidden": true,
+        "lineageTag": "c4310634-f185-49db-b408-73adf45e9c77",
+        "partitions": [
+          {
+            "name": "LocalDateTable_725aafe6-38ea-4166-848e-d97e3e0b6b81",
+            "mode": "import",
+            "source": {
+              "expression": "Calendar(Date(Year(MIN('NoTotals'[Year])), 1, 1), Date(Year(MAX('NoTotals'[Year])), 12, 31))",
+              "type": "calculated"
+            }
+          }
+        ],
+        "showAsVariationsOnly": true
+      }
+    ]
+  }
+}

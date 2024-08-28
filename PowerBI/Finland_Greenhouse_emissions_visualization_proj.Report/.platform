@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Finland_Greenhouse_emissions_visualization_proj"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c78e040c-f9d3-4e62-b6f1-889c48f8cf0a"
+  }
+}
