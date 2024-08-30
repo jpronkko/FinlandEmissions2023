@@ -10,7 +10,7 @@ This git project includes Power BI project files and python code used to make th
   <figcaption>Figure 1. Screenshot from the Power BI report</figcaption>
 </figure>
 <br />
-
+<br />
 <figure>
   <img src="Screenshots/EmissionsReportPg2.png" width="95%">
   <figcaption>Figure 2. Screenshot from the Power BI report</figcaption>
