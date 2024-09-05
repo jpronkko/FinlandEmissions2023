@@ -10,23 +10,11 @@
       "nodes": [
         {
           "location": {
-            "x": 0,
-            "y": 12
+            "x": 759,
+            "y": 350.75
           },
-          "nodeIndex": "Finland_emissions_2023",
-          "nodeLineageTag": "9f472294-7f62-4c6e-836b-5005f94b9dd1",
-          "size": {
-            "height": 176,
-            "width": 234
-          },
-          "zIndex": 0
-        },
-        {
-          "location": {
-            "x": 284,
-            "y": 0
-          },
-          "nodeIndex": "NoTotals",
+          "nodeIndex": "EmissionsTotalsMain",
+          "nodeLineageTag": "84555e80-a863-4b32-ab16-1b8f8dca7b4d",
           "size": {
             "height": 200,
             "width": 234
@@ -35,10 +23,75 @@
         },
         {
           "location": {
-            "x": 568,
-            "y": 0
+            "x": 350,
+            "y": 350.75
           },
-          "nodeIndex": "Totals",
+          "nodeIndex": "EmissionTotals",
+          "nodeLineageTag": "3848952d-bb77-45e9-b772-e47c49c87b82",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1078,
+            "y": 349.75
+          },
+          "nodeIndex": "EmissionsLULUCF",
+          "nodeLineageTag": "dc10335f-55e0-49f4-954d-82c087845096",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 72.333328247070313,
+            "y": 342.75
+          },
+          "nodeIndex": "Emissions2023",
+          "nodeLineageTag": "9d1a56cf-1b97-4734-a05f-558fda8d8bdc",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1366,
+            "y": 368.75
+          },
+          "nodeIndex": "CumulativeEnergyTypes",
+          "nodeLineageTag": "4ff55b2c-3dab-44b5-becb-9893c6e8e1e9",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 416,
+            "y": 729.75
+          },
+          "nodeIndex": "EmissionsCategories",
+          "nodeLineageTag": "0b629d50-8001-456a-8f95-fd711ebc3e70",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1650,
+            "y": 330.75
+          },
+          "nodeIndex": "EmissionsEnergyCategories",
           "size": {
             "height": 200,
             "width": 234
