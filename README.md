@@ -1,8 +1,8 @@
-# Finland Greenhouse Gas Emissions 2023 (FinlandEmissions2023) project
+# Finland Greenhouse Gas Emissions 2023 visualization
 
-FinlandEmissions2023 is a small project, in which I investigate through visualizations various aspects of StatFin Finland 2023 greenhouse emission data. The data covers years from 1990 to 2022 and preliminary data from 2023. It includes greenhouse gas emissions from various sectors in a detailed way such as land use, energy and transport. Apart from CO2 emissions, it includes emissions of other greenhouse gasses as well, such as methane. One can browse the data from https://stat.fi/tilasto/khki. For this project I wrote a simple python code to retrieve a chunk of the data from StatFin public API for further processing in Python and Power BI to create the visualizations.
+FinlandEmissions2023 is a data visualization project, in which I investigate various aspects of the StatFin Finland 2023 greenhouse emissions data. The data covers years from 1990 to 2022 and preliminary data for the year 2023. It includes emissions from various sectors in a detailed way such as land use, energy and transport. Apart from the carbon dioxide (CO2) emissions, it includes emissions of other greenhouse gasses as well, such as methane. One can browse the data from https://stat.fi/tilasto/khki. For this project I wrote a simple python code to retrieve a chunk of the data from StatFin public API for further processing in Python and Power BI to create the visualizations.
 
-This git project includes Power BI project files and python code used to make the report shown in the screenshot in figures 1 and 2.
+This git project includes Power BI project files and Python code (data fetcher and a Jupyter notebook for data preparation) used to make the report shown in the screenshot in figures 1, 2 and 3.
 
 <br />
 
@@ -38,4 +38,4 @@ The work so far has involved the following tasks:
 
 # Todo
 
-I find the topic quite interesting and I intend to dig further in the data and to continue making additional visualizations.
+I find the topic quite interesting and I intend to dig further in the data and to continue making additional visualizations. The data model in the Power BI could use some enhancements.

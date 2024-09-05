@@ -6752,6 +6752,17 @@
             "expression": "CALCULATE(SUM(Emissions2023[Emission CO2 equiv]), Emissions2023[Emission category] IN VALUES(CumulativeEnergyTypes[Sarake 1]))",
             "formatString": "0",
             "lineageTag": "36f000e8-8585-4629-bb13-180d0edbccd7"
+          },
+          {
+            "name": "EnergyPer",
+            "annotations": [
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "expression": "DIVIDE([AllEnergy], EmissionsTotalsMain[TotalNoLULUCF] )",
+            "lineageTag": "d90413aa-8087-4d12-a005-56f314ffbf48"
           }
         ],
         "partitions": [
